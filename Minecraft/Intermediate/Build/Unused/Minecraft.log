@@ -1,0 +1,19 @@
+﻿  Using 'git status' to determine working set for adaptive non-unity build (C:\Users\roriv\Documents\GitHub\Produccion_Minecraft).
+  Invalidating makefile for MinecraftEditor (mundo.cpp modified)
+  Building MinecraftEditor...
+  Using Visual Studio 2019 14.28.29334 toolchain (C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333) and Windows 10.0.18362.0 SDK (C:\Program Files (x86)\Windows Kits\10).
+  Building 4 actions with 8 processes...
+    [1/4] mundo.cpp
+C:\Users\roriv\Documents\GitHub\Produccion_Minecraft\Minecraft\Source\Minecraft\mundo.cpp(43): warning C4457: declaration of 'x' hides function parameter
+    C:\Users\roriv\Documents\GitHub\Produccion_Minecraft\Minecraft\Source\Minecraft\mundo.cpp(36): note: see declaration of 'x'
+C:\Users\roriv\Documents\GitHub\Produccion_Minecraft\Minecraft\Source\Minecraft\mundo.cpp(52): warning C4457: declaration of 'x' hides function parameter
+    C:\Users\roriv\Documents\GitHub\Produccion_Minecraft\Minecraft\Source\Minecraft\mundo.cpp(36): note: see declaration of 'x'
+C:\Users\roriv\Documents\GitHub\Produccion_Minecraft\Minecraft\Source\Minecraft\mundo.cpp(58): warning C4457: declaration of 'x' hides function parameter
+    C:\Users\roriv\Documents\GitHub\Produccion_Minecraft\Minecraft\Source\Minecraft\mundo.cpp(36): note: see declaration of 'x'
+    [2/4] UE4Editor-Minecraft.lib
+       Creating library C:\Users\roriv\Documents\GitHub\Produccion_Minecraft\Minecraft\Intermediate\Build\Win64\UE4Editor\Development\Minecraft\UE4Editor-Minecraft.lib and object C:\Users\roriv\Documents\GitHub\Produccion_Minecraft\Minecraft\Intermediate\Build\Win64\UE4Editor\Development\Minecraft\UE4Editor-Minecraft.exp
+    [3/4] UE4Editor-Minecraft.dll
+       Creating library C:\Users\roriv\Documents\GitHub\Produccion_Minecraft\Minecraft\Intermediate\Build\Win64\UE4Editor\Development\Minecraft\UE4Editor-Minecraft.suppressed.lib and object C:\Users\roriv\Documents\GitHub\Produccion_Minecraft\Minecraft\Intermediate\Build\Win64\UE4Editor\Development\Minecraft\UE4Editor-Minecraft.suppressed.exp
+    [4/4] MinecraftEditor.target
+  Total time in Parallel executor: 5.24 seconds
+  Total execution time: 8.11 seconds
