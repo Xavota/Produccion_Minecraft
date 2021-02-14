@@ -74,9 +74,27 @@ void EmptyLinkFunctionForGeneratedCodemundo() {}
 #endif
 		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_afinidad;
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_cubito_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_numofcuads_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FClassPropertyParams NewProp_cubito;
+		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_numofcuads;
+		static const UE4CodeGen_Private::FClassPropertyParams NewProp_capas_Inner;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_capas_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FArrayPropertyParams NewProp_capas;
+		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_tcapas_Inner;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_tcapas_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FArrayPropertyParams NewProp_tcapas;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_awa_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FClassPropertyParams NewProp_awa;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_awalvl_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FUnsizedIntPropertyParams NewProp_awalvl;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -162,12 +180,42 @@ void EmptyLinkFunctionForGeneratedCodemundo() {}
 #endif
 	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UClass_Amundo_Statics::NewProp_afinidad = { "afinidad", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Amundo, afinidad), METADATA_PARAMS(Z_Construct_UClass_Amundo_Statics::NewProp_afinidad_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_Amundo_Statics::NewProp_afinidad_MetaData)) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_Amundo_Statics::NewProp_cubito_MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_Amundo_Statics::NewProp_numofcuads_MetaData[] = {
 		{ "Category", "mundo" },
 		{ "ModuleRelativePath", "mundo.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FClassPropertyParams Z_Construct_UClass_Amundo_Statics::NewProp_cubito = { "cubito", nullptr, (EPropertyFlags)0x0014000000000001, UE4CodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Amundo, cubito), Z_Construct_UClass_AActor_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(Z_Construct_UClass_Amundo_Statics::NewProp_cubito_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_Amundo_Statics::NewProp_cubito_MetaData)) };
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UClass_Amundo_Statics::NewProp_numofcuads = { "numofcuads", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Amundo, numofcuads), METADATA_PARAMS(Z_Construct_UClass_Amundo_Statics::NewProp_numofcuads_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_Amundo_Statics::NewProp_numofcuads_MetaData)) };
+	const UE4CodeGen_Private::FClassPropertyParams Z_Construct_UClass_Amundo_Statics::NewProp_capas_Inner = { "capas", nullptr, (EPropertyFlags)0x0004000000000000, UE4CodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UClass_AActor_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(nullptr, 0) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_Amundo_Statics::NewProp_capas_MetaData[] = {
+		{ "Category", "mundo" },
+		{ "ModuleRelativePath", "mundo.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FArrayPropertyParams Z_Construct_UClass_Amundo_Statics::NewProp_capas = { "capas", nullptr, (EPropertyFlags)0x0014000000000001, UE4CodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Amundo, capas), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_Amundo_Statics::NewProp_capas_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_Amundo_Statics::NewProp_capas_MetaData)) };
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UClass_Amundo_Statics::NewProp_tcapas_Inner = { "tcapas", nullptr, (EPropertyFlags)0x0000000000000000, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, METADATA_PARAMS(nullptr, 0) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_Amundo_Statics::NewProp_tcapas_MetaData[] = {
+		{ "Category", "mundo" },
+		{ "ModuleRelativePath", "mundo.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FArrayPropertyParams Z_Construct_UClass_Amundo_Statics::NewProp_tcapas = { "tcapas", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Amundo, tcapas), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_Amundo_Statics::NewProp_tcapas_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_Amundo_Statics::NewProp_tcapas_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_Amundo_Statics::NewProp_awa_MetaData[] = {
+		{ "Category", "mundo" },
+		{ "ModuleRelativePath", "mundo.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FClassPropertyParams Z_Construct_UClass_Amundo_Statics::NewProp_awa = { "awa", nullptr, (EPropertyFlags)0x0014000000000001, UE4CodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Amundo, awa), Z_Construct_UClass_AActor_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(Z_Construct_UClass_Amundo_Statics::NewProp_awa_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_Amundo_Statics::NewProp_awa_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_Amundo_Statics::NewProp_awalvl_MetaData[] = {
+		{ "Category", "mundo" },
+		{ "ModuleRelativePath", "mundo.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FUnsizedIntPropertyParams Z_Construct_UClass_Amundo_Statics::NewProp_awalvl = { "awalvl", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Amundo, awalvl), METADATA_PARAMS(Z_Construct_UClass_Amundo_Statics::NewProp_awalvl_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_Amundo_Statics::NewProp_awalvl_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_Amundo_Statics::PropPointers[] = {
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Amundo_Statics::NewProp_sizex,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Amundo_Statics::NewProp_sizey,
@@ -179,7 +227,13 @@ void EmptyLinkFunctionForGeneratedCodemundo() {}
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Amundo_Statics::NewProp_lenght,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Amundo_Statics::NewProp_reacomodar,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Amundo_Statics::NewProp_afinidad,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Amundo_Statics::NewProp_cubito,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Amundo_Statics::NewProp_numofcuads,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Amundo_Statics::NewProp_capas_Inner,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Amundo_Statics::NewProp_capas,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Amundo_Statics::NewProp_tcapas_Inner,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Amundo_Statics::NewProp_tcapas,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Amundo_Statics::NewProp_awa,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Amundo_Statics::NewProp_awalvl,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_Amundo_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<Amundo>::IsAbstract,
@@ -208,7 +262,7 @@ void EmptyLinkFunctionForGeneratedCodemundo() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(Amundo, 3242481405);
+	IMPLEMENT_CLASS(Amundo, 115686902);
 	template<> MINECRAFT_API UClass* StaticClass<Amundo>()
 	{
 		return Amundo::StaticClass();

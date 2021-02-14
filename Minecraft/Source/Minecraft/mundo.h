@@ -36,7 +36,17 @@ public:
 	UPROPERTY(EditAnywhere)
 		float afinidad;
 	UPROPERTY(EditAnywhere)
-		TSubclassOf<AActor> cubito;
+		float numofcuads;
+	UPROPERTY(EditAnywhere)
+		TArray<TSubclassOf<AActor>> capas;
+	UPROPERTY(EditAnywhere)
+		TArray<float> tcapas;
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<AActor> awa;
+	UPROPERTY(EditAnywhere)
+		int awalvl;
+	vector<vector<int>> vectors;
+	void makevektors();
 	//UPROPERTY()
 		//TArray<float> terrain;
 	vector<float> terrain;
@@ -46,6 +56,9 @@ public:
 	vector<vector<float>> terreno;
 	vector<vector<float>> transpuesta;
 	vector<vector<float>> tfinal;
+	float dotp(float x, float y, int e, int& d);
+	float interpolation(float ini, float end,float aki);
+	float noise(volatile float x, volatile float y);
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

@@ -11,6 +11,18 @@ Amundo::Amundo()
 
 }
 
+void Amundo::makevektors()
+{
+	srand(seed);
+	vectors.resize(numofcuads);
+	for (int x = 0; x < numofcuads; x++) {
+		for (int y = 0; y < numofcuads; y++) {
+			vectors[x].push_back(rand() % 4);
+		}
+	}
+		
+}
+
 void Amundo::perilnoise(vector<float>&nums,int d)
 {
 	float este=0;
@@ -62,6 +74,44 @@ vector<vector<float>> Amundo::perilnoise2d(int x, int d)
 	return tfinal;
 }
 
+float Amundo::dotp(float x, float y, int e, int& d)
+{
+	if (e > 1) {
+		y = 1 - y;
+	}
+	if (e % 2 != 0) {
+		x = 1 - x;
+	}
+	if (d > 1) {
+		y *= -1;
+	}
+	if (e % 2 == 0) {
+		x *= -1;
+	}
+	return x+y;
+}
+
+float Amundo::interpolation(float ini, float end,float aki)
+{
+	return ini+aki*(end-ini);
+}
+
+float Amundo::noise(volatile float x, volatile float y)
+{
+	volatile float nx = x / sizex * (numofcuads-1);
+	volatile float ny = y / sizex * (numofcuads - 1);
+	volatile int xint = nx;
+	volatile int yint = ny;
+	volatile float xres = nx-xint;
+	volatile float yres = ny-yint;
+	volatile float p00 = dotp(xres, yres, 0, vectors[xint][yint]);
+	volatile float p01 = dotp(xres, yres, 1, vectors[xint + 1][yint]);
+	volatile float p1 = interpolation(p00, p01, xres);
+	volatile float p2 = interpolation(dotp(xres, yres, 2, vectors[xint][yint + 1]), dotp(xres, yres, 3, vectors[xint + 1][yint + 1]), xres);
+	return interpolation(p1,p2, yres);
+
+}
+
 // Called when the game starts or when spawned
 void Amundo::BeginPlay()
 {
@@ -69,14 +119,29 @@ void Amundo::BeginPlay()
 	Super::BeginPlay();
 	FVector posi;
 	FTransform trans;
-
-	vector<vector<float>> heights = perilnoise2d(sizey, depth);
+	int n = 0;
+	int z;
+	makevektors();
+	//vector<vector<float>> heights = perilnoise2d(sizey, depth);
 	for (int x = 0; x < sizex; x++) {
 		for (int y = 0; y < sizey; y++) {
-			for (int z = 0; z < (heights[x][y]*sizez- reacomodar)*afinidad; z++) {
+			n = 0;
+			for (z = 0; z < noise(x,y)*sizez+ reacomodar; z++) {
+				if (z == tcapas[n]) {
+					n++;
+					if (n == tcapas.Num()) {
+						break;
+					}
+				}
+
 				posi = FVector((.5f * (sizex - 1) + x) * separacion, (.5f * (sizey - 1) + y) * separacion, z * separacion);
 				trans = FTransform(posi);
-				GetWorld()->SpawnActor<AActor>(cubito, trans);
+				GetWorld()->SpawnActor<AActor>(capas[n], trans);
+			}
+			for (z; z < awalvl; z++) {
+				posi = FVector((.5f * (sizex - 1) + x) * separacion, (.5f * (sizey - 1) + y) * separacion, z * separacion);
+				trans = FTransform(posi);
+				GetWorld()->SpawnActor<AActor>(awa, trans);
 			}
 		}
 	}
