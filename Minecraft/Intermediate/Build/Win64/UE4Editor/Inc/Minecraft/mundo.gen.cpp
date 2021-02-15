@@ -34,6 +34,16 @@ void EmptyLinkFunctionForGeneratedCodemundo() {}
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
 #if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_v_MetaData[];
+#endif
+		static void NewProp_v_SetBit(void* Obj);
+		static const UE4CodeGen_Private::FBoolPropertyParams NewProp_v;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_rn_MetaData[];
+#endif
+		static void NewProp_rn_SetBit(void* Obj);
+		static const UE4CodeGen_Private::FBoolPropertyParams NewProp_rn;
+#if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_sizex_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_sizex;
@@ -121,6 +131,28 @@ void EmptyLinkFunctionForGeneratedCodemundo() {}
 		{ "ModuleRelativePath", "mundo.h" },
 	};
 #endif
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_Amundo_Statics::NewProp_v_MetaData[] = {
+		{ "Category", "mundo" },
+		{ "ModuleRelativePath", "mundo.h" },
+	};
+#endif
+	void Z_Construct_UClass_Amundo_Statics::NewProp_v_SetBit(void* Obj)
+	{
+		((Amundo*)Obj)->v = 1;
+	}
+	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UClass_Amundo_Statics::NewProp_v = { "v", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Bool | UE4CodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Amundo), &Z_Construct_UClass_Amundo_Statics::NewProp_v_SetBit, METADATA_PARAMS(Z_Construct_UClass_Amundo_Statics::NewProp_v_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_Amundo_Statics::NewProp_v_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_Amundo_Statics::NewProp_rn_MetaData[] = {
+		{ "Category", "mundo" },
+		{ "ModuleRelativePath", "mundo.h" },
+	};
+#endif
+	void Z_Construct_UClass_Amundo_Statics::NewProp_rn_SetBit(void* Obj)
+	{
+		((Amundo*)Obj)->rn = 1;
+	}
+	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UClass_Amundo_Statics::NewProp_rn = { "rn", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Bool | UE4CodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Amundo), &Z_Construct_UClass_Amundo_Statics::NewProp_rn_SetBit, METADATA_PARAMS(Z_Construct_UClass_Amundo_Statics::NewProp_rn_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_Amundo_Statics::NewProp_rn_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_Amundo_Statics::NewProp_sizex_MetaData[] = {
 		{ "Category", "mundo" },
@@ -250,6 +282,8 @@ void EmptyLinkFunctionForGeneratedCodemundo() {}
 #endif
 	const UE4CodeGen_Private::FClassPropertyParams Z_Construct_UClass_Amundo_Statics::NewProp_ClassToFind = { "ClassToFind", nullptr, (EPropertyFlags)0x0014000000000001, UE4CodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Amundo, ClassToFind), Z_Construct_UClass_AActor_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(Z_Construct_UClass_Amundo_Statics::NewProp_ClassToFind_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_Amundo_Statics::NewProp_ClassToFind_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_Amundo_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Amundo_Statics::NewProp_v,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Amundo_Statics::NewProp_rn,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Amundo_Statics::NewProp_sizex,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Amundo_Statics::NewProp_sizey,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Amundo_Statics::NewProp_sizez,
@@ -298,7 +332,7 @@ void EmptyLinkFunctionForGeneratedCodemundo() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(Amundo, 2709044983);
+	IMPLEMENT_CLASS(Amundo, 691139857);
 	template<> MINECRAFT_API UClass* StaticClass<Amundo>()
 	{
 		return Amundo::StaticClass();

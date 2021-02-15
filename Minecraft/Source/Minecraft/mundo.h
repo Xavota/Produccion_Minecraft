@@ -5,8 +5,10 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include<vector>
+#include<string>
 #include "mundo.generated.h"
 using std::vector;
+using std::string;
 UCLASS()
 class MINECRAFT_API Amundo : public AActor
 {
@@ -15,6 +17,10 @@ class MINECRAFT_API Amundo : public AActor
 public:
 	// Sets default values for this actor's properties
 	Amundo();
+	UPROPERTY(EditAnywhere)
+		bool v;
+	UPROPERTY(EditAnywhere)
+		bool rn;
 	UPROPERTY(EditAnywhere)
 		float sizex;
 	UPROPERTY(EditAnywhere)
@@ -52,19 +58,23 @@ public:
 	vector<float> terrain;
 	float ant;
 	void perilnoise(vector<float>& nums, int d);
-	vector<vector<float>> perilnoise2d(int x, int d);
+	void perilnoise2d(int d);
 	vector<vector<float>> terreno;
 	vector<vector<float>> transpuesta;
 	vector<vector<float>> tfinal;
+	
 	float dotp(float x, float y, int e, int& d);
 	float interpolation(float ini, float end,float aki);
 	float noise(volatile float x, volatile float y);
+	float peril(float x, float y);
 	UPROPERTY(EditAnywhere)
 		int isinchunckx = 0;
 	UPROPERTY(EditAnywhere)
 		int isinchuncky = 0;
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AActor> ClassToFind;
+	void createchunck(int x, int y);
+	vector<string> coords;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
