@@ -3,6 +3,9 @@
 
 #include "mundo.h"
 #include "Kismet/GameplayStatics.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/SpectatorPawn.h"
+#include <math.h> 
 // Sets default values
 Amundo::Amundo()
 {
@@ -77,10 +80,10 @@ vector<vector<float>> Amundo::perilnoise2d(int x, int d)
 float Amundo::dotp(float x, float y, int e, int& d)
 {
 	if (e > 1) {
-		y = 1 - y;
+		y =  y-1;
 	}
 	if (e % 2 != 0) {
-		x = 1 - x;
+		x = x-1;
 	}
 	if (d > 1) {
 		y *= -1;
@@ -134,12 +137,12 @@ void Amundo::BeginPlay()
 					}
 				}
 
-				posi = FVector((.5f * (sizex - 1) + x) * separacion, (.5f * (sizey - 1) + y) * separacion, z * separacion);
+				posi = FVector((x-.5f * (sizex - 1)) * separacion, (y-.5f * (sizey - 1) ) * separacion, z * separacion);
 				trans = FTransform(posi);
 				GetWorld()->SpawnActor<AActor>(capas[n], trans);
 			}
 			for (z; z < awalvl; z++) {
-				posi = FVector((.5f * (sizex - 1) + x) * separacion, (.5f * (sizey - 1) + y) * separacion, z * separacion);
+				posi = FVector((x - .5f * (sizex - 1)) * separacion, (y - .5f * (sizey - 1)) * separacion, z * separacion);
 				trans = FTransform(posi);
 				GetWorld()->SpawnActor<AActor>(awa, trans);
 			}
@@ -151,7 +154,14 @@ void Amundo::BeginPlay()
 // Called every frame
 void Amundo::Tick(float DeltaTime)
 {
+	
 	Super::Tick(DeltaTime);
-
+	TArray<AActor*> FoundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ClassToFind, FoundActors);
+	//ACharacter* p= UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
+	if (abs(FoundActors[0]->GetActorLocation().X - isinchunckx * sizex*separacion) > sizex / 2.f || abs(FoundActors[0]->GetActorLocation().Y - isinchuncky * sizey * separacion) > sizey / 2.f) {
+		isinchunckx = round(FoundActors[0]->GetActorLocation().X / (sizex * separacion));
+		isinchuncky = round(FoundActors[0]->GetActorLocation().Y / (sizey * separacion));
+	}
 }
 

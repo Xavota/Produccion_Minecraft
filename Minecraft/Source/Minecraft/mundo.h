@@ -59,6 +59,12 @@ public:
 	float dotp(float x, float y, int e, int& d);
 	float interpolation(float ini, float end,float aki);
 	float noise(volatile float x, volatile float y);
+	UPROPERTY(EditAnywhere)
+		int isinchunckx = 0;
+	UPROPERTY(EditAnywhere)
+		int isinchuncky = 0;
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AActor> ClassToFind;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

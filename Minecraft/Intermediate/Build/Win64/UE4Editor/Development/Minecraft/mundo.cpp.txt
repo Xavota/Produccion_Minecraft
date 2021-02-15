@@ -24,3 +24,14 @@ D:\Games\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\DialogueTy
 D:\Games\UE_4.26\Engine\Source\Runtime\Engine\Classes\Kismet\GameplayStaticsTypes.h
 D:\Games\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\GameplayStaticsTypes.generated.h
 D:\Games\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\GameplayStatics.generated.h
+D:\Games\UE_4.26\Engine\Source\Runtime\Engine\Classes\GameFramework/Character.h
+D:\Games\UE_4.26\Engine\Source\Runtime\Engine\Classes\GameFramework/CharacterMovementReplication.h
+D:\Games\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\CharacterMovementReplication.generated.h
+D:\Games\UE_4.26\Engine\Source\Runtime\Engine\Classes\GameFramework/RootMotionSource.h
+D:\Games\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\RootMotionSource.generated.h
+D:\Games\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\Character.generated.h
+D:\Games\UE_4.26\Engine\Source\Runtime\Engine\Classes\GameFramework/SpectatorPawn.h
+D:\Games\UE_4.26\Engine\Source\Runtime\Engine\Classes\GameFramework/DefaultPawn.h
+D:\Games\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\DefaultPawn.generated.h
+D:\Games\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\SpectatorPawn.generated.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\math.h
