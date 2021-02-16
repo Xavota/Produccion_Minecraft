@@ -2,12 +2,12 @@
 	"Targets": [
 		{
 			"Name": "Minecraft",
-			"Path": "C:\\Users\\roriv\\Documents\\GitHub\\Produccion_Minecraft\\Minecraft\\Source\\Minecraft.Target.cs",
+			"Path": "C:\\Users\\marad\\OneDrive\\Documents\\GitHub\\Produccion_Minecraft\\Minecraft\\Source\\Minecraft.Target.cs",
 			"Type": "Game"
 		},
 		{
 			"Name": "MinecraftEditor",
-			"Path": "C:\\Users\\roriv\\Documents\\GitHub\\Produccion_Minecraft\\Minecraft\\Source\\MinecraftEditor.Target.cs",
+			"Path": "C:\\Users\\marad\\OneDrive\\Documents\\GitHub\\Produccion_Minecraft\\Minecraft\\Source\\MinecraftEditor.Target.cs",
 			"Type": "Editor"
 		}
 	]

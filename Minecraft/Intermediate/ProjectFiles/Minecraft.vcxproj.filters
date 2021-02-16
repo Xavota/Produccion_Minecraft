@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\Minecraft.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{932C114A-2BDA-4750-8904-64A43F2575A9}</UniqueIdentifier>
+      <UniqueIdentifier>{85291671-2952-4C5E-BED3-93FDC4296407}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\Minecraft.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{1F18C3F9-5F5E-477E-B3EE-8301C5604A50}</UniqueIdentifier>
+      <UniqueIdentifier>{2E0B6E74-2147-49C1-82A5-E92B8DD8E1F0}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -30,8 +30,20 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\Minecraft">
-      <UniqueIdentifier>{61CF2B83-3A57-4E9C-931F-5361CEFD8DFC}</UniqueIdentifier>
+      <UniqueIdentifier>{A76A0C75-6B00-4B85-90EB-0E6BF3FEEE8F}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\Minecraft\Block_CPP.cpp">
+      <Filter>Source\Minecraft</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Minecraft\Block_CPP.h">
+      <Filter>Source\Minecraft</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Minecraft\B_Tierra_CPP.cpp">
+      <Filter>Source\Minecraft</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Minecraft\B_Tierra_CPP.h">
+      <Filter>Source\Minecraft</Filter>
+    </ClInclude>
     <None Include="..\..\Source\Minecraft\Minecraft.Build.cs">
       <Filter>Source\Minecraft</Filter>
     </None>
