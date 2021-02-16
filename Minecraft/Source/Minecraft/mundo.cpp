@@ -86,7 +86,7 @@ float Amundo::dotp(float x, float y, int e, int& d)
 	if (d <= 1) {
 		y *= -1;
 	}
-	if (e % 2 == 0) {
+	if (d % 2 == 0) {
 		x *= -1;
 	}
 	return x+y;
@@ -150,8 +150,8 @@ void Amundo::createchunck(int px, int py)
 	int z;
 	makevektors();
 	perilnoise2d(depth);
-	for (int x = 0; x < sizex; x++) {
-		for (int y = 0; y < sizey; y++) {
+	for (volatile int x = 0; x < sizex; x++) {
+		for (volatile int y = 0; y < sizey; y++) {
 			n = 0;
 			for (z = 0; z < round((noise(x, y) + peril(x, y)* afinidad) * sizez) + reacomodar; z++) {
 				if (z == tcapas[n]) {
