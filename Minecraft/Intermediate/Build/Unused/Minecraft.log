@@ -9,5 +9,5 @@
     [3/4] UE4Editor-Minecraft.dll
        Creating library C:\Users\roriv\Documents\GitHub\Produccion_Minecraft\Minecraft\Intermediate\Build\Win64\UE4Editor\Development\Minecraft\UE4Editor-Minecraft.suppressed.lib and object C:\Users\roriv\Documents\GitHub\Produccion_Minecraft\Minecraft\Intermediate\Build\Win64\UE4Editor\Development\Minecraft\UE4Editor-Minecraft.suppressed.exp
     [4/4] MinecraftEditor.target
-  Total time in Parallel executor: 12.81 seconds
-  Total execution time: 15.46 seconds
+  Total time in Parallel executor: 15.60 seconds
+  Total execution time: 49.87 seconds

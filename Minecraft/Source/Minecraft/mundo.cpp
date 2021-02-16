@@ -15,7 +15,8 @@ Amundo::Amundo()
 
 void Amundo::makevektors()
 {
-	srand(seed);
+	srand(subseed);
+	vectors.clear();
 	vectors.resize(numofcuads);
 	for (int x = 0; x < numofcuads; x++) {
 		for (int y = 0; y < numofcuads; y++) {
@@ -48,7 +49,7 @@ void Amundo::perilnoise(vector<float>&nums,int d)
 
 void Amundo::perilnoise2d(int d)
 {
-	srand(seed);
+	srand(subseed);
 	float este=0;
 	float n=0;
 	
@@ -82,7 +83,7 @@ float Amundo::dotp(float x, float y, int e, int& d)
 	if (e % 2 != 0) {
 		x = x-1;
 	}
-	if (d > 1) {
+	if (d <= 1) {
 		y *= -1;
 	}
 	if (e % 2 == 0) {
@@ -101,17 +102,20 @@ float Amundo::noise(volatile float x, volatile float y)
 	if (!v) {
 		return 0;
 	}
-	volatile float nx = x / sizex * (numofcuads-1);
-	volatile float ny = y / sizex * (numofcuads - 1);
+	volatile float nx = x / sizex * (numofcuads - 1)+ (numofcuads - 1)/(sizex *2.f);
+	volatile float ny = y / sizex * (numofcuads - 1) + (numofcuads - 1) / (sizex * 2.f);
 	volatile int xint = nx;
 	volatile int yint = ny;
 	volatile float xres = nx-xint;
 	volatile float yres = ny-yint;
 	volatile float p00 = dotp(xres, yres, 0, vectors[xint][yint]);
 	volatile float p01 = dotp(xres, yres, 1, vectors[xint + 1][yint]);
+	volatile float p02 = dotp(xres, yres, 2, vectors[xint][yint + 1]);
+	volatile float p03 = dotp(xres, yres, 3, vectors[xint + 1][yint + 1]);
 	volatile float p1 = interpolation(p00, p01, xres);
-	volatile float p2 = interpolation(dotp(xres, yres, 2, vectors[xint][yint + 1]), dotp(xres, yres, 3, vectors[xint + 1][yint + 1]), xres);
-	return interpolation(p1,p2, yres);
+	volatile float p2 = interpolation(p02,p03 , xres);
+	volatile float p = interpolation(p1, p2, yres);
+	return p;
 
 }
 
@@ -134,7 +138,8 @@ float Amundo::peril(float x, float y)
 
 void Amundo::createchunck(int px, int py)
 {
-
+	srand(seed);
+	subseed = seed+(rand() % 7) * px + (rand() % 11) * py;
 	if (std::find(coords.begin(), coords.end(), std::to_string(px)+ std::to_string(py)) != coords.end()) {
 		return;
 	}
@@ -148,7 +153,7 @@ void Amundo::createchunck(int px, int py)
 	for (int x = 0; x < sizex; x++) {
 		for (int y = 0; y < sizey; y++) {
 			n = 0;
-			for (z = 0; z < round((noise(x, y) + peril(x, y)) * sizez) + reacomodar; z++) {
+			for (z = 0; z < round((noise(x, y) + peril(x, y)* afinidad) * sizez) + reacomodar; z++) {
 				if (z == tcapas[n]) {
 					n++;
 					if (n == tcapas.Num()) {

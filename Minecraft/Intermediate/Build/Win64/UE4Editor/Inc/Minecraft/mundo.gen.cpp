@@ -62,7 +62,7 @@ void EmptyLinkFunctionForGeneratedCodemundo() {}
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_seed_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_seed;
+		static const UE4CodeGen_Private::FUnsizedIntPropertyParams NewProp_seed;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_depth_MetaData[];
 #endif
@@ -187,7 +187,7 @@ void EmptyLinkFunctionForGeneratedCodemundo() {}
 		{ "ModuleRelativePath", "mundo.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UClass_Amundo_Statics::NewProp_seed = { "seed", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Amundo, seed), METADATA_PARAMS(Z_Construct_UClass_Amundo_Statics::NewProp_seed_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_Amundo_Statics::NewProp_seed_MetaData)) };
+	const UE4CodeGen_Private::FUnsizedIntPropertyParams Z_Construct_UClass_Amundo_Statics::NewProp_seed = { "seed", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Amundo, seed), METADATA_PARAMS(Z_Construct_UClass_Amundo_Statics::NewProp_seed_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_Amundo_Statics::NewProp_seed_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_Amundo_Statics::NewProp_depth_MetaData[] = {
 		{ "Category", "mundo" },
@@ -332,7 +332,7 @@ void EmptyLinkFunctionForGeneratedCodemundo() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(Amundo, 691139857);
+	IMPLEMENT_CLASS(Amundo, 2581620409);
 	template<> MINECRAFT_API UClass* StaticClass<Amundo>()
 	{
 		return Amundo::StaticClass();

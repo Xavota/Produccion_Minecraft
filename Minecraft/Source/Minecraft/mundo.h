@@ -30,7 +30,7 @@ public:
 	UPROPERTY(EditAnywhere)
 		float separacion;
 	UPROPERTY(EditAnywhere)
-		float seed;
+		int seed;
 	UPROPERTY(EditAnywhere)
 		float depth;
 	UPROPERTY(EditAnywhere)
@@ -75,6 +75,7 @@ public:
 	TSubclassOf<AActor> ClassToFind;
 	void createchunck(int x, int y);
 	vector<string> coords;
+	int subseed;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
