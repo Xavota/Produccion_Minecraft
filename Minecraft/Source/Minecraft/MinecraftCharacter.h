@@ -56,6 +56,7 @@ public:
 
 protected:
 	virtual void BeginPlay();
+	virtual void Tick(float DeltaTime) override;
 
 public:
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
@@ -86,10 +87,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	uint8 bUsingMotionControllers : 1;
 
+	bool Hitting = false;
+
+	class ABlock_CPP* BlockHitting;
+
 protected:
 	
 	/** Fires a projectile. */
 	void OnFire();
+	void StopFire();
 
 	/** Resets HMD orientation and position in VR. */
 	void OnResetVR();

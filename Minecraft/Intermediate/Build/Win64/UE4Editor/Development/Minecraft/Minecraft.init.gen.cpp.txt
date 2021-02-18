@@ -1,3 +1,0 @@
-C:\Users\marad\OneDrive\Documents\GitHub\Produccion_Minecraft\Minecraft\Intermediate\Build\Win64\UE4Editor\Development\Minecraft\Definitions.Minecraft.h
-C:\Program Files\Epic Games\UE_4.26\Engine\Source\Runtime\CoreUObject\Public\UObject/GeneratedCppIncludes.h
-C:\Program Files\Epic Games\UE_4.26\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h

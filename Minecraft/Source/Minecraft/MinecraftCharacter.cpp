@@ -11,6 +11,10 @@
 #include "Kismet/GameplayStatics.h"
 #include "MotionControllerComponent.h"
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
+#include "CollisionQueryParams.h"
+#include "DrawDebugHelpers.h"
+
+#include "Block_CPP.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -42,12 +46,12 @@ AMinecraftCharacter::AMinecraftCharacter()
 	Mesh1P->SetRelativeLocation(FVector(-0.5f, -4.4f, -155.7f));
 
 	// Create a gun mesh component
-	FP_Gun = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FP_Gun"));
+	/*FP_Gun = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FP_Gun"));
 	FP_Gun->SetOnlyOwnerSee(false);			// otherwise won't be visible in the multiplayer
 	FP_Gun->bCastDynamicShadow = false;
 	FP_Gun->CastShadow = false;
 	// FP_Gun->SetupAttachment(Mesh1P, TEXT("GripPoint"));
-	FP_Gun->SetupAttachment(RootComponent);
+	FP_Gun->SetupAttachment(RootComponent);*/
 
 	FP_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("MuzzleLocation"));
 	FP_MuzzleLocation->SetupAttachment(FP_Gun);
@@ -68,12 +72,12 @@ AMinecraftCharacter::AMinecraftCharacter()
 
 	// Create a gun and attach it to the right-hand VR controller.
 	// Create a gun mesh component
-	VR_Gun = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("VR_Gun"));
+	/*VR_Gun = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("VR_Gun"));
 	VR_Gun->SetOnlyOwnerSee(false);			// otherwise won't be visible in the multiplayer
 	VR_Gun->bCastDynamicShadow = false;
 	VR_Gun->CastShadow = false;
 	VR_Gun->SetupAttachment(R_MotionController);
-	VR_Gun->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
+	VR_Gun->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));*/
 
 	VR_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("VR_MuzzleLocation"));
 	VR_MuzzleLocation->SetupAttachment(VR_Gun);
@@ -90,18 +94,83 @@ void AMinecraftCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
-	FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
+	//FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
 
 	// Show or hide the two versions of the gun based on whether or not we're using motion controllers.
 	if (bUsingMotionControllers)
 	{
-		VR_Gun->SetHiddenInGame(false, true);
+		//VR_Gun->SetHiddenInGame(false, true);
 		Mesh1P->SetHiddenInGame(true, true);
 	}
 	else
 	{
-		VR_Gun->SetHiddenInGame(true, true);
+		//VR_Gun->SetHiddenInGame(true, true);
 		Mesh1P->SetHiddenInGame(false, true);
+	}
+}
+
+void AMinecraftCharacter::Tick(float DeltaTime)
+{
+	if (Hitting)
+	{
+		FVector Loc = FirstPersonCameraComponent->GetComponentLocation();
+		FHitResult Hit;
+
+		float distance = 1000;
+
+		FVector Start = Loc;
+		FVector End = Loc + FirstPersonCameraComponent->GetComponentRotation().Vector() * distance;
+
+		FCollisionQueryParams TraceParams;
+
+		bool hited = GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECC_Visibility, TraceParams);
+
+		DrawDebugLine(
+			GetWorld(),
+			Start,
+			End,
+			FColor(255, 0, 0),
+			false, .1f, 0,
+			1
+		);
+
+		auto Block = Cast<ABlock_CPP>(Hit.Actor);
+
+		if (Block != NULL)
+		{
+			if (BlockHitting != NULL)
+			{
+				if (Block != BlockHitting)
+				{
+					BlockHitting->Unhitted();
+					BlockHitting = Block;
+					BlockHitting->Hitted(DeltaTime);
+				}
+				else
+				{
+					BlockHitting->Hitted(DeltaTime);
+				}
+			}
+			else
+			{
+				BlockHitting = Block;
+				BlockHitting->Hitted(DeltaTime);
+			}
+
+			if (!BlockHitting->isAlive)
+			{
+				//Hit.Actor->Destroy();
+				BlockHitting = nullptr;
+				GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Black, "Ded");
+			}
+		}
+		else
+		{
+			if (BlockHitting != nullptr)
+			{
+				BlockHitting->Unhitted();
+			}
+		}
 	}
 }
 
@@ -119,6 +188,7 @@ void AMinecraftCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 
 	// Bind fire event
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AMinecraftCharacter::OnFire);
+	PlayerInputComponent->BindAction("Fire", IE_Released, this, &AMinecraftCharacter::StopFire);
 
 	// Enable touchscreen input
 	EnableTouchscreenMovement(PlayerInputComponent);
@@ -141,7 +211,7 @@ void AMinecraftCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 void AMinecraftCharacter::OnFire()
 {
 	// try and fire a projectile
-	if (ProjectileClass != nullptr)
+	/*if (ProjectileClass != nullptr)
 	{
 		UWorld* const World = GetWorld();
 		if (World != nullptr)
@@ -183,7 +253,16 @@ void AMinecraftCharacter::OnFire()
 		{
 			AnimInstance->Montage_Play(FireAnimation, 1.f);
 		}
-	}
+	}*/
+
+	Hitting = true; 
+}
+
+void AMinecraftCharacter::StopFire()
+{
+	Hitting = false;
+	if (BlockHitting != nullptr)
+		BlockHitting->Unhitted();
 }
 
 void AMinecraftCharacter::OnResetVR()

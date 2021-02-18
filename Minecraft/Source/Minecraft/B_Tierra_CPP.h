@@ -14,4 +14,9 @@ class MINECRAFT_API AB_Tierra_CPP : public ABlock_CPP
 {
 	GENERATED_BODY()
 	
+public:
+	AB_Tierra_CPP();
+
+public:
+
 };

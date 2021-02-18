@@ -28,7 +28,15 @@ protected:
 
 public:	
 	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	//virtual void Tick(float DeltaTime) override;
+	void LanzarRayo(TArray<ABlock_CPP*>& arrays);
+
+	void UpdateAdjacents();
+
+	virtual void Hitted(float DeltaTime);
+	virtual void Unhitted();
+	virtual void Interacted();
+	virtual void Breaked();
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = BlockInfo)
@@ -38,5 +46,11 @@ public:
 
 	UPROPERTY()
 		class UStaticMeshComponent* CubeMesh;
+
+	bool isAlive = true;
+
+protected:
+	float MaxLife = 1;
+	float Life = 1;
 
 };
