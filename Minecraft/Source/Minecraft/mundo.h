@@ -42,7 +42,13 @@ public:
 	UPROPERTY(EditAnywhere)
 		float afinidad;
 	UPROPERTY(EditAnywhere)
+		float av;
+	UPROPERTY(EditAnywhere)
 		float numofcuads;
+	UPROPERTY(EditAnywhere)
+		TArray<float> noises;
+	UPROPERTY(EditAnywhere)
+		TArray<float> noisesize;
 	UPROPERTY(EditAnywhere)
 		TArray<TSubclassOf<AActor>> capas;
 	UPROPERTY(EditAnywhere)
@@ -50,9 +56,13 @@ public:
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<AActor> awa;
 	UPROPERTY(EditAnywhere)
+		TSubclassOf<AActor> tree;
+	UPROPERTY(EditAnywhere)
+		int probtree;
+	UPROPERTY(EditAnywhere)
 		int awalvl;
-	vector<vector<int>> vectors;
-	void makevektors();
+	vector<vector<vector<int>>> vectors;
+	void makevektors(int x);
 	//UPROPERTY()
 		//TArray<float> terrain;
 	vector<float> terrain;
@@ -65,7 +75,8 @@ public:
 	
 	float dotp(float x, float y, int e, int& d);
 	float interpolation(float ini, float end,float aki);
-	float noise(volatile float x, volatile float y);
+	float getnoises(float x, float y);
+	float noise(volatile float x, volatile float y,int a);
 	float peril(float x, float y);
 	UPROPERTY(EditAnywhere)
 		int isinchunckx = 0;

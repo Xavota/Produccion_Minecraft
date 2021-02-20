@@ -13,14 +13,14 @@ Amundo::Amundo()
 	PrimaryActorTick.bCanEverTick = true;
 }
 
-void Amundo::makevektors()
+void Amundo::makevektors(int s)
 {
-	srand(subseed);
-	vectors.clear();
-	vectors.resize(numofcuads);
-	for (int x = 0; x < numofcuads; x++) {
-		for (int y = 0; y < numofcuads; y++) {
-			vectors[x].push_back(rand() % 4);
+	
+	vectors.push_back(vector<vector<int>>());
+	vectors[vectors.size()-1].resize(s);
+	for (int x = 0; x < s; x++) {
+		for (int y = 0; y < s; y++) {
+			vectors[vectors.size()-1][x].push_back(rand() % 4);
 		}
 	}
 		
@@ -54,10 +54,10 @@ void Amundo::perilnoise2d(int d)
 	float n=0;
 	
 	vector<float> nums;
-	for (int x = 0; x < pow(2, d); x++) {
+ 	for (int x = 0; x < pow(2, d); x++) {
 		nums.clear();
 		for (int y = 0; y < pow(2,d); y++) {
-			n = (rand() % int(niosines)) / niosines;
+//			n = noise(x * (numofcuads - 1) / pow(2, d)+ (numofcuads - 1) / pow(2, d) /2.f, y * (numofcuads - 1) / pow(2, d) + (numofcuads - 1) / pow(2, d) / 2.f);
 			nums.push_back(n);
 		}
 		perilnoise(nums, d);
@@ -97,21 +97,30 @@ float Amundo::interpolation(float ini, float end,float aki)
 	return ini+aki*(end-ini);
 }
 
-float Amundo::noise(volatile float x, volatile float y)
+float Amundo::getnoises(float x, float y)
+{
+	float ans=0;
+	for (int a = 0; a < noisesize.Num(); a++) {
+		ans+=noise(x, y, a)* noisesize[a];
+	}
+	return ans;
+}
+
+float Amundo::noise(volatile float x, volatile float y,int a)
 {
 	if (!v) {
 		return 0;
 	}
-	volatile float nx = x / sizex * (numofcuads - 1)+ (numofcuads - 1)/(sizex *2.f);
-	volatile float ny = y / sizex * (numofcuads - 1) + (numofcuads - 1) / (sizex * 2.f);
+	volatile float nx = x / sizex * (noises[a] - 1)+ (noises[a] - 1)/(sizex *2.f);
+	volatile float ny = y / sizex * (noises[a] - 1) + (noises[a] - 1) / (sizex * 2.f);
 	volatile int xint = nx;
 	volatile int yint = ny;
 	volatile float xres = nx-xint;
 	volatile float yres = ny-yint;
-	volatile float p00 = dotp(xres, yres, 0, vectors[xint][yint]);
-	volatile float p01 = dotp(xres, yres, 1, vectors[xint + 1][yint]);
-	volatile float p02 = dotp(xres, yres, 2, vectors[xint][yint + 1]);
-	volatile float p03 = dotp(xres, yres, 3, vectors[xint + 1][yint + 1]);
+	volatile float p00 = dotp(xres, yres, 0, vectors[a][xint][yint]);
+	volatile float p01 = dotp(xres, yres, 1, vectors[a][xint + 1][yint]);
+	volatile float p02 = dotp(xres, yres, 2, vectors[a][xint][yint + 1]);
+	volatile float p03 = dotp(xres, yres, 3, vectors[a][xint + 1][yint + 1]);
 	volatile float p1 = interpolation(p00, p01, xres);
 	volatile float p2 = interpolation(p02,p03 , xres);
 	volatile float p = interpolation(p1, p2, yres);
@@ -140,6 +149,7 @@ void Amundo::createchunck(int px, int py)
 {
 	srand(seed);
 	subseed = seed+(rand() % 7) * px + (rand() % 11) * py;
+	srand(subseed);
 	if (std::find(coords.begin(), coords.end(), std::to_string(px)+ std::to_string(py)) != coords.end()) {
 		return;
 	}
@@ -148,12 +158,14 @@ void Amundo::createchunck(int px, int py)
 	FTransform trans;
 	int n = 0;
 	int z;
-	makevektors();
-	perilnoise2d(depth);
+	for (int a : noises) {
+		makevektors(a);
+	}
+	//perilnoise2d(depth);
 	for (volatile int x = 0; x < sizex; x++) {
 		for (volatile int y = 0; y < sizey; y++) {
 			n = 0;
-			for (z = 0; z < round((noise(x, y) + peril(x, y)* afinidad) * sizez) + reacomodar; z++) {
+			for (z = 0; z < round((getnoises(x, y )+ peril(x, y)* afinidad) * sizez) + reacomodar; z++) {
 				if (z == tcapas[n]) {
 					n++;
 					if (n == tcapas.Num()) {
@@ -163,6 +175,11 @@ void Amundo::createchunck(int px, int py)
 				posi = FVector((x - .5f * (sizex - 1)+ sizex*px) * separacion, (y - .5f * (sizey - 1)+sizey * py) * separacion, z * separacion);
 				trans = FTransform(posi);
 				GetWorld()->SpawnActor<AActor>(capas[n], trans);
+			}
+			if (rand() % probtree == 0) {
+				posi = FVector((x - .5f * (sizex - 1)) * separacion, (y - .5f * (sizey - 1)) * separacion, z * separacion);
+				trans = FTransform(posi);
+				GetWorld()->SpawnActor<AActor>(tree, trans);
 			}
 			for (z; z < awalvl; z++) {
 				posi = FVector((x - .5f * (sizex - 1)) * separacion, (y - .5f * (sizey - 1)) * separacion, z * separacion);
