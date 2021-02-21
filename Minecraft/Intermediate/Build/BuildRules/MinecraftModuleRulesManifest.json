@@ -1,0 +1,8 @@
+{
+	"SourceFiles": [
+		"C:\\Users\\roriv\\Documents\\GitHub\\Produccion_Minecraft\\Minecraft\\Source\\Minecraft\\Minecraft.Build.cs",
+		"C:\\Users\\roriv\\Documents\\GitHub\\Produccion_Minecraft\\Minecraft\\Source\\Minecraft.Target.cs",
+		"C:\\Users\\roriv\\Documents\\GitHub\\Produccion_Minecraft\\Minecraft\\Source\\MinecraftEditor.Target.cs"
+	],
+	"EngineVersion": "4.26.0"
+}
