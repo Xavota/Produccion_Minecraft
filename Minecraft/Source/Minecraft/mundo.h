@@ -6,9 +6,11 @@
 #include "GameFramework/Actor.h"
 #include<vector>
 #include<string>
+#include<map>
 #include "mundo.generated.h"
 using std::vector;
 using std::string;
+using std::map;
 UCLASS()
 class MINECRAFT_API Amundo : public AActor
 {
@@ -21,6 +23,8 @@ public:
 		bool v;
 	UPROPERTY(EditAnywhere)
 		bool rn;
+	UPROPERTY(EditAnywhere)
+		float sizedivs;
 	UPROPERTY(EditAnywhere)
 		float sizex;
 	UPROPERTY(EditAnywhere)
@@ -62,6 +66,7 @@ public:
 	UPROPERTY(EditAnywhere)
 		int awalvl;
 	vector<vector<vector<int>>> vectors;
+	int getvectorat(int x, int y, int z);
 	void makevektors(int x);
 	//UPROPERTY()
 		//TArray<float> terrain;
@@ -72,8 +77,8 @@ public:
 	vector<vector<float>> terreno;
 	vector<vector<float>> transpuesta;
 	vector<vector<float>> tfinal;
-	
-	float dotp(float x, float y, int e, int& d);
+	map<string, vector<void*>> cubesinchunk;
+	float dotp(float x, float y, int e, int d);
 	float interpolation(float ini, float end,float aki);
 	float getnoises(float x, float y);
 	float noise(volatile float x, volatile float y,int a);
@@ -84,8 +89,10 @@ public:
 		int isinchuncky = 0;
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AActor> ClassToFind;
+	void createchuncks(int x, int y);
 	void createchunck(int x, int y);
 	vector<string> coords;
+	vector<string> tempcoords;
 	int subseed;
 protected:
 	// Called when the game starts or when spawned

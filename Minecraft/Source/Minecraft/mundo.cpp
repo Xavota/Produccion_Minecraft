@@ -5,12 +5,21 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/SpectatorPawn.h"
+#include "Components/SceneComponent.h"
 #include<algorithm>
 #include <math.h> 
 // Sets default values
 Amundo::Amundo()
 {
 	PrimaryActorTick.bCanEverTick = true;
+}
+
+int Amundo::getvectorat(int x, int y, int z)
+{
+	srand(seed);
+	subseed = seed + (rand() % 7) * x + (rand() % 11) * y+ (rand() % 13) * z;
+	srand(subseed);
+	return rand() % 4;
 }
 
 void Amundo::makevektors(int s)
@@ -49,7 +58,7 @@ void Amundo::perilnoise(vector<float>&nums,int d)
 
 void Amundo::perilnoise2d(int d)
 {
-	srand(subseed);
+	//srand(subseed);
 	float este=0;
 	float n=0;
 	
@@ -75,7 +84,7 @@ void Amundo::perilnoise2d(int d)
 	}
 }
 
-float Amundo::dotp(float x, float y, int e, int& d)
+float Amundo::dotp(float x, float y, int e, int d)
 {
 	if (e > 1) {
 		y =  y-1;
@@ -111,16 +120,16 @@ float Amundo::noise(volatile float x, volatile float y,int a)
 	if (!v) {
 		return 0;
 	}
-	volatile float nx = x / sizex * (noises[a] - 1)+ (noises[a] - 1)/(sizex *2.f);
-	volatile float ny = y / sizex * (noises[a] - 1) + (noises[a] - 1) / (sizex * 2.f);
+	volatile float nx = x / sizedivs * (noises[a] - 1)+ (noises[a] - 1)/(sizedivs *2.f);
+	volatile float ny = y / sizedivs * (noises[a] - 1) + (noises[a] - 1) / (sizedivs * 2.f);
 	volatile int xint = nx;
 	volatile int yint = ny;
 	volatile float xres = nx-xint;
 	volatile float yres = ny-yint;
-	volatile float p00 = dotp(xres, yres, 0, vectors[a][xint][yint]);
-	volatile float p01 = dotp(xres, yres, 1, vectors[a][xint + 1][yint]);
-	volatile float p02 = dotp(xres, yres, 2, vectors[a][xint][yint + 1]);
-	volatile float p03 = dotp(xres, yres, 3, vectors[a][xint + 1][yint + 1]);
+	volatile float p00 = dotp(xres, yres, 0, getvectorat(xint,yint,a));
+	volatile float p01 = dotp(xres, yres, 1, getvectorat(xint+1, yint, a));
+	volatile float p02 = dotp(xres, yres, 2, getvectorat(xint, yint+1, a));
+	volatile float p03 = dotp(xres, yres, 3, getvectorat(xint+1, yint+1, a));
 	volatile float p1 = interpolation(p00, p01, xres);
 	volatile float p2 = interpolation(p02,p03 , xres);
 	volatile float p = interpolation(p1, p2, yres);
@@ -145,27 +154,54 @@ float Amundo::peril(float x, float y)
 	return 0;
 }
 
+void Amundo::createchuncks(int x, int y)
+{
+	createchunck(x, y);
+	createchunck(x - 1, y);
+	createchunck(x, y-1);
+	createchunck(x+1, y);
+	createchunck(x, y+1);
+	vector<string>ss;
+	for (std::pair< string, vector<void*>> a : cubesinchunk) {
+		if (std::find(tempcoords.begin(), tempcoords.end(), a.first) == tempcoords.end()) {
+			for (void* e : a.second) {
+				((AActor*)e)->Destroy();
+			}
+			coords.erase(std::find(coords.begin(), coords.end(), a.first));
+			a.second.clear();
+			ss.push_back(a.first);
+		}
+	}
+	for (string s : ss) {
+		cubesinchunk.erase(s);
+	}
+	tempcoords.clear();
+}
+
 void Amundo::createchunck(int px, int py)
 {
-	srand(seed);
-	subseed = seed+(rand() % 7) * px + (rand() % 11) * py;
-	srand(subseed);
-	if (std::find(coords.begin(), coords.end(), std::to_string(px)+ std::to_string(py)) != coords.end()) {
+	string s = std::to_string(px) + std::to_string(py);
+	tempcoords.push_back(s);
+	if (std::find(coords.begin(), coords.end(),s) != coords.end()) {
 		return;
 	}
-	coords.push_back(std::to_string(px) + std::to_string(py));
+	coords.push_back(s);
 	FVector posi;
 	FTransform trans;
 	int n = 0;
 	int z;
+	cubesinchunk.insert({ s, {} });
+	/*vectors.clear();
 	for (int a : noises) {
 		makevektors(a);
-	}
+	}*/
 	//perilnoise2d(depth);
+	//AActor *a;
+	volatile int ran=0;
 	for (volatile int x = 0; x < sizex; x++) {
 		for (volatile int y = 0; y < sizey; y++) {
 			n = 0;
-			for (z = 0; z < round((getnoises(x, y )+ peril(x, y)* afinidad) * sizez) + reacomodar; z++) {
+			for (z = 0; z < round((getnoises(x+px*sizex, y+py*sizey )/*+ peril(x, y)* afinidad*/) * sizez) + reacomodar; z++) {
 				if (z == tcapas[n]) {
 					n++;
 					if (n == tcapas.Num()) {
@@ -174,17 +210,18 @@ void Amundo::createchunck(int px, int py)
 				}
 				posi = FVector((x - .5f * (sizex - 1)+ sizex*px) * separacion, (y - .5f * (sizey - 1)+sizey * py) * separacion, z * separacion);
 				trans = FTransform(posi);
-				GetWorld()->SpawnActor<AActor>(capas[n], trans);
+				cubesinchunk[s].push_back((void*)GetWorld()->SpawnActor<AActor>(capas[n], trans));
 			}
+			srand(seed + px * 7 + py * 11 + x * 13 + y * 17);
 			if (rand() % probtree == 0) {
-				posi = FVector((x - .5f * (sizex - 1)) * separacion, (y - .5f * (sizey - 1)) * separacion, z * separacion);
+				posi = FVector((x - .5f * (sizex - 1)+sizex * px) * separacion , (y - .5f * (sizey - 1) + sizey * py) * separacion , z * separacion);
 				trans = FTransform(posi);
-				GetWorld()->SpawnActor<AActor>(tree, trans);
+				cubesinchunk[s].push_back((void*)GetWorld()->SpawnActor<AActor>(tree, trans));
 			}
 			for (z; z < awalvl; z++) {
-				posi = FVector((x - .5f * (sizex - 1)) * separacion, (y - .5f * (sizey - 1)) * separacion, z * separacion);
+				posi = FVector((x - .5f * (sizex - 1) + sizex * px) * separacion , (y - .5f * (sizey - 1) + sizey * py) * separacion + sizey * py, z * separacion);
 				trans = FTransform(posi);
-				GetWorld()->SpawnActor<AActor>(awa, trans);
+				cubesinchunk[s].push_back((void*)GetWorld()->SpawnActor<AActor>(awa, trans));
 			}
 		}
 	}
@@ -193,9 +230,8 @@ void Amundo::createchunck(int px, int py)
 // Called when the game starts or when spawned
 void Amundo::BeginPlay()
 {
-
 	Super::BeginPlay();
-	createchunck(0, 0);
+	createchuncks(0, 0);
 }
 
 // Called every frame
@@ -208,7 +244,7 @@ void Amundo::Tick(float DeltaTime)
 	if (round(FoundActors[0]->GetActorLocation().X / (sizex * separacion))!= isinchunckx || round(FoundActors[0]->GetActorLocation().Y / (sizey * separacion))!= isinchuncky) {
 		isinchunckx = round(FoundActors[0]->GetActorLocation().X / (sizex * separacion));
 		isinchuncky = round(FoundActors[0]->GetActorLocation().Y / (sizey * separacion));
-		createchunck(isinchunckx, isinchuncky);
+		createchuncks(isinchunckx, isinchuncky);
 	}
 }
 
