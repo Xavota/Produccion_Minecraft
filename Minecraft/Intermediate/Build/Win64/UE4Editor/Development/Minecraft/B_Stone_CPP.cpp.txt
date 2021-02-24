@@ -1,5 +1,0 @@
-C:\Users\roriv\Documents\GitHub\Produccion_Minecraft\Minecraft\Intermediate\Build\Win64\UE4Editor\Development\Minecraft\Definitions.Minecraft.h
-C:\Users\roriv\Documents\GitHub\Produccion_Minecraft\Minecraft\Source\Minecraft\B_Stone_CPP.h
-C:\Users\roriv\Documents\GitHub\Produccion_Minecraft\Minecraft\Source\Minecraft\Block_CPP.h
-C:\Users\roriv\Documents\GitHub\Produccion_Minecraft\Minecraft\Intermediate\Build\Win64\UE4Editor\Inc\Minecraft\Block_CPP.generated.h
-C:\Users\roriv\Documents\GitHub\Produccion_Minecraft\Minecraft\Intermediate\Build\Win64\UE4Editor\Inc\Minecraft\B_Stone_CPP.generated.h
